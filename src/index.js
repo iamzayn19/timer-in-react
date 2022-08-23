@@ -6,15 +6,38 @@ class Timer extends React.Component{
   constructor(props){
     super(props);
     this.state = { 
-      seconds: 0
+      seconds: 0,
+      minutes: 0,
+      hours: 0
     }
   }
 
   clock()
-  {
-    this.setState(state => ({
-      seconds: state.seconds + 1
-    }));
+  { 
+    if (this.state.minutes == 60)
+    {
+      this.setState(state => ({
+        hours: state.hours + 1,
+        minutes: 0,
+        seconds: 0
+      }));
+    }
+    else {
+      if (this.state.seconds == 60)
+      {  
+        this.setState(state => ({
+          minutes: state.minutes + 1,
+          seconds: 0
+        }));
+      }
+    else {
+      this.setState(state => ({
+        seconds: state.seconds + 1,
+      }));
+      }
+    }
+    
+    
   }
 
   componentDidMount()
@@ -29,8 +52,10 @@ class Timer extends React.Component{
 
 render (){
   return(
-    <div>
-      Seconds: {this.state.seconds}
+    <div class="stopwatch">
+       <span> {this.state.hours} : </span>
+       <span> {this.state.minutes} : </span>
+       <span> {this.state.seconds} </span> 
     </div>
   ); 
 }
